@@ -1,10 +1,20 @@
-FROM php:8.4-fpm-alpine
+FROM ubuntu:22.04
 
-RUN apk add --no-cache \
-    curl zip unzip git nodejs npm \
-    libpng-dev libzip-dev oniguruma-dev libxml2-dev \
-    && docker-php-ext-install \
-    pdo pdo_mysql mbstring zip exif bcmath xml ctype
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y \
+    software-properties-common curl git unzip zip \
+    && add-apt-repository ppa:ondrej/php \
+    && apt-get update && apt-get install -y \
+    php8.4 php8.4-cli \
+    php8.4-mbstring php8.4-xml \
+    php8.4-pdo php8.4-mysql \
+    php8.4-pgsql php8.4-zip \
+    php8.4-bcmath php8.4-curl \
+    php8.4-tokenizer php8.4-ctype \
+    php8.4-fileinfo php8.4-dom \
+    nodejs npm \
+    && apt-get clean
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
@@ -16,11 +26,11 @@ RUN composer install --no-scripts --no-interaction --prefer-dist --optimize-auto
 
 RUN npm ci && npm run build
 
-RUN php artisan package:discover --ansi \
-    && php artisan config:cache \
-    && php artisan route:cache \
-    && php artisan view:cache
+RUN php8.4 artisan package:discover --ansi \
+    && php8.4 artisan config:cache \
+    && php8.4 artisan route:cache \
+    && php8.4 artisan view:cache
 
 EXPOSE 8000
 
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
+CMD ["php8.4", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
