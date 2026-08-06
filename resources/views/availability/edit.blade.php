@@ -38,7 +38,6 @@
 
           <input type="hidden" name="rule_type" :value="type">
 
-          {{-- Selector de Tipo de Regla --}}
           <div>
             <label class="block text-sm font-medium text-zinc-300 mb-1">Tipo de regla</label>
             <div class="grid grid-cols-2 gap-3 mb-2">
@@ -64,7 +63,6 @@
             </div>
           </div>
 
-          {{-- Select de Día de la semana (0 a 6) --}}
           <div x-show="type === 'day'">
             <label for="day_of_week" class="block text-sm font-medium text-zinc-300 mb-1">Día de la semana</label>
             <select name="day_of_week" id="day_of_week" x-model="day"
@@ -83,7 +81,6 @@
             @enderror
           </div>
 
-          {{-- Fecha específica --}}
           <div x-show="type === 'date'" x-cloak>
             <label for="specific_date" class="block text-sm font-medium text-zinc-300 mb-1">Fecha</label>
             <input type="date" name="specific_date" id="specific_date" x-model="date"
@@ -93,7 +90,6 @@
             @enderror
           </div>
 
-          {{-- Horarios open_time y close_time --}}
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label for="open_time" class="block text-sm font-medium text-zinc-300 mb-1">Hora de Apertura</label>
@@ -116,7 +112,6 @@
             </div>
           </div>
 
-          {{-- Marcar como Cerrado --}}
           <div class="pt-2">
             <label class="inline-flex items-center cursor-pointer">
               <input type="checkbox" name="is_closed" value="1"
