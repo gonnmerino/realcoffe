@@ -34,4 +34,4 @@ RUN php8.4 artisan package:discover --ansi \
 
 EXPOSE 8000
 
-CMD ["php8.4", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
+CMD ["php8.4", "-S", "0.0.0.0:8000", "-t", "public"]
