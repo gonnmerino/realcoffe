@@ -35,4 +35,5 @@ CMD php8.4 artisan config:cache && \
     php8.4 artisan route:cache && \
     php8.4 artisan view:cache && \
     php8.4 artisan migrate --force && \
+    php8.4 artisan storage:link && \
     php8.4 -S 0.0.0.0:8000 -t public
