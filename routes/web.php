@@ -54,8 +54,3 @@ Route::middleware(['auth', 'verified'])->group(function () {
   });
 
 });
-
-//TODO: Edicion de roles,
-// # Cada rol puede modificar un cambio de estado del pedido, ✔️
-// # Mecanica carrito ✔️
-// # Quitar botones "ver" del dashboard y revision global de comportamiento ✔️
