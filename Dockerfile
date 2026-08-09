@@ -27,11 +27,12 @@ RUN composer install --no-scripts --no-interaction --prefer-dist --optimize-auto
 
 RUN npm ci && npm run build
 
-RUN php8.4 artisan package:discover --ansi \
-    && php8.4 artisan config:cache \
-    && php8.4 artisan route:cache \
-    && php8.4 artisan view:cache
+RUN php8.4 artisan package:discover --ansi
 
 EXPOSE 8000
 
-CMD ["php8.4", "-S", "0.0.0.0:8000", "-t", "public"]
+CMD php8.4 artisan config:cache && \
+    php8.4 artisan route:cache && \
+    php8.4 artisan view:cache && \
+    php8.4 artisan migrate --force && \
+    php8.4 -S 0.0.0.0:8000 -t public
