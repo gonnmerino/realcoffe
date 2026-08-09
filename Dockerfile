@@ -43,10 +43,13 @@ RUN php8.4 artisan package:discover --ansi
 
 EXPOSE 8000
 
-CMD php8.4 artisan config:cache && \
+CMD php8.4 artisan config:clear && \
+    php8.4 artisan config:cache && \
     php8.4 artisan route:cache && \
     php8.4 artisan view:cache && \
     php8.4 artisan migrate --force && \
     php8.4 artisan storage:link && \
+    chmod -R 775 /var/www/storage /var/www/bootstrap/cache && \
+    chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache && \
     service php8.4-fpm start && \
     nginx -g 'daemon off;'
